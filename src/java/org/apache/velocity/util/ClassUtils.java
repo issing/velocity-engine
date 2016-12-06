@@ -185,8 +185,10 @@ public class ClassUtils {
       /*
        * like ASTIdentifier, if we have cache information, and the Class of
        * Object o is the same as that in the cache, we are safe.
+       * 
+       * 支持静态类型
        */
-      if (icd != null && (o != null && icd.contextData == o.getClass()))
+      if (icd != null && (o != null && (icd.contextData == (o instanceof Class ? (Class<?>)o : o.getClass()))))
       {
 
         /*
@@ -205,7 +207,8 @@ public class ClassUtils {
         if ((method != null) && (o != null))
         {
           icd = new IntrospectionCacheData();
-          icd.contextData = o.getClass();
+          // 支持静态类型
+          icd.contextData = o instanceof Class ? (Class<?>)o : o.getClass(); // 静态类型直接赋值
           icd.thingy = method;
 
           context.icachePut(mck, icd);

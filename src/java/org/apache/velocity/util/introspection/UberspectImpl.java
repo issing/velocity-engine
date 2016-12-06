@@ -197,13 +197,14 @@ public class UberspectImpl implements Uberspect, UberspectLoggable
             return null;
         }
 
-        Method m = introspector.getMethod(obj.getClass(), methodName, args);
+        /* 支持静态类型 */
+        Class<?> cls = obj instanceof Class ? (Class<?>)obj : obj.getClass();
+        Method m = introspector.getMethod(cls, methodName, args);
         if (m != null)
         {
             return new VelMethodImpl(m);
         }
 
-        Class cls = obj.getClass();
         // if it's an array
         if (cls.isArray())
         {

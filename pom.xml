@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
- Licensed to the Apache Software Foundation (ASF) under one
- or more contributor license agreements.  See the NOTICE file
- distributed with this work for additional information
- regarding copyright ownership.  The ASF licenses this file
- to you under the Apache License, Version 2.0 (the
- "License"); you may not use this file except in compliance
- with the License.  You may obtain a copy of the License at
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+  license agreements. See the NOTICE file distributed with this work for additional 
+  information regarding copyright ownership. The ASF licenses this file to 
+  you under the Apache License, Version 2.0 (the "License"); you may not use 
+  this file except in compliance with the License. You may obtain a copy of 
+  the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+  by applicable law or agreed to in writing, software distributed under the 
+  License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+  OF ANY KIND, either express or implied. See the License for the specific 
+  language governing permissions and limitations under the License. -->
 
-   http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing,
- software distributed under the License is distributed on an
- "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- KIND, either express or implied.  See the License for the
- specific language governing permissions and limitations
- under the License.    
--->
-
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -31,7 +22,7 @@
     <version>4</version>
   </parent>
 
-  <groupId>org.apache.velocity</groupId>
+  <groupId>net.isger</groupId>
   <artifactId>velocity</artifactId>
   <version>1.7</version>
 
@@ -40,9 +31,9 @@
   <description>Apache Velocity is a general purpose template engine.</description>
   <inceptionYear>2000</inceptionYear>
   <packaging>jar</packaging>
-  
+
   <prerequisites>
-      <maven>2.0.9</maven>
+    <maven>2.0.9</maven>
   </prerequisites>
 
   <build>
@@ -98,7 +89,7 @@
       </roles>
     </developer>
 
-   <developer>
+    <developer>
       <name>Geir Magnusson Jr.</name>
       <id>geirm</id>
       <email>geirm@optonline.net</email>
@@ -259,7 +250,7 @@
           </reportSet>
         </reportSets>
         <configuration>
-            <issueLinkTemplate>${jira.browse.url}/%ISSUE%</issueLinkTemplate>
+          <issueLinkTemplate>${jira.browse.url}/%ISSUE%</issueLinkTemplate>
           <!-- Apache JIRA, Component Engine -->
           <component>12311337</component>
           <!-- FixFor 1.6 -->
@@ -314,10 +305,10 @@
           <threshold>Low</threshold>
           <effort>Max</effort>
           <excludeFilterFile>build/findbugs-exclude.xml</excludeFilterFile>
-          <findbugsXmlOutputDirectory>xdocs</findbugsXmlOutputDirectory> 
+          <findbugsXmlOutputDirectory>xdocs</findbugsXmlOutputDirectory>
         </configuration>
       </plugin>
-      <plugin>      
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
@@ -335,9 +326,9 @@
     <url>http://svn.apache.org/viewvc/velocity/engine/trunk</url>
   </scm>
 
-    <properties>
-        <jira.browse.url>https://issues.apache.org/jira/browse</jira.browse.url>
-    </properties>
+  <properties>
+    <jira.browse.url>https://issues.apache.org/jira/browse</jira.browse.url>
+  </properties>
 
   <issueManagement>
     <system>JIRA</system>
