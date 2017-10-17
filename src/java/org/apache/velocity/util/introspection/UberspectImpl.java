@@ -197,8 +197,10 @@ public class UberspectImpl implements Uberspect, UberspectLoggable
             return null;
         }
 
-        /* 支持静态类型 */
-        Class<?> cls = obj instanceof Class ? (Class<?>)obj : obj.getClass();
+        /* 支持静态类型（静态类型先处理） */
+        boolean isStatic;
+        Class<?> cls = (isStatic = obj instanceof Class) ? (Class<?>) obj
+                : obj.getClass();
         Method m = introspector.getMethod(cls, methodName, args);
         if (m != null)
         {
@@ -218,9 +220,10 @@ public class UberspectImpl implements Uberspect, UberspectLoggable
             }
         }
         // watch for classes, to allow calling their static methods (VELOCITY-102)
-        else if (cls == Class.class)
+        else if (isStatic)
         {
-            m = introspector.getMethod((Class)obj, methodName, args);
+            // 类静态方法
+            m = introspector.getMethod(Class.class, methodName, args);
             if (m != null)
             {
                 return new VelMethodImpl(m);
