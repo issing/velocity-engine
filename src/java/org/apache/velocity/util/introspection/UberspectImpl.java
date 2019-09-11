@@ -199,8 +199,7 @@ public class UberspectImpl implements Uberspect, UberspectLoggable
 
         /* 支持静态类型（静态类型先处理） */
         boolean isStatic;
-        Class<?> cls = (isStatic = obj instanceof Class) ? (Class<?>) obj
-                : obj.getClass();
+        Class<?> cls = (isStatic = obj instanceof Class) ? (Class<?>) obj : obj.getClass();
         Method m = introspector.getMethod(cls, methodName, args);
         if (m != null)
         {
