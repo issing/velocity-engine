@@ -28,16 +28,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.jdom.Attribute;
-import org.jdom.CDATA;
-import org.jdom.Comment;
-import org.jdom.DocType;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.EntityRef;
-import org.jdom.ProcessingInstruction;
-import org.jdom.Text;
-import org.jdom.output.XMLOutputter;
+import org.jdom2.Attribute;
+import org.jdom2.CDATA;
+import org.jdom2.Comment;
+import org.jdom2.DocType;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.EntityRef;
+import org.jdom2.ProcessingInstruction;
+import org.jdom2.Text;
+import org.jdom2.output.XMLOutputter;
 
 /**
  * Provides a class for wrapping a list of JDOM objects primarily for use in template
@@ -163,7 +163,7 @@ public class NodeList implements List, Cloneable
                 Object node = i.next();
                 if(node instanceof Element)
                 {
-                    DEFAULT_OUTPUTTER.output((Element)node, sw);
+                    DEFAULT_OUTPUTTER.outputter.output((Element)node, sw);
                 }
                 else if(node instanceof Attribute)
                 {
@@ -171,31 +171,31 @@ public class NodeList implements List, Cloneable
                 }
                 else if(node instanceof Text)
                 {
-                    DEFAULT_OUTPUTTER.output((Text)node, sw);
+                    DEFAULT_OUTPUTTER.outputter.output((Text)node, sw);
                 }
                 else if(node instanceof Document)
                 {
-                    DEFAULT_OUTPUTTER.output((Document)node, sw);
+                    DEFAULT_OUTPUTTER.outputter.output((Document)node, sw);
                 }
                 else if(node instanceof ProcessingInstruction)
                 {
-                    DEFAULT_OUTPUTTER.output((ProcessingInstruction)node, sw);
+                    DEFAULT_OUTPUTTER.outputter.output((ProcessingInstruction)node, sw);
                 }
                 else if(node instanceof Comment)
                 {
-                    DEFAULT_OUTPUTTER.output((Comment)node, sw);
+                    DEFAULT_OUTPUTTER.outputter.output((Comment)node, sw);
                 }
                 else if(node instanceof CDATA)
                 {
-                    DEFAULT_OUTPUTTER.output((CDATA)node, sw);
+                    DEFAULT_OUTPUTTER.outputter.output((CDATA)node, sw);
                 }
                 else if(node instanceof DocType)
                 {
-                    DEFAULT_OUTPUTTER.output((DocType)node, sw);
+                    DEFAULT_OUTPUTTER.outputter.output((DocType)node, sw);
                 }
                 else if(node instanceof EntityRef)
                 {
-                    DEFAULT_OUTPUTTER.output((EntityRef)node, sw);
+                    DEFAULT_OUTPUTTER.outputter.output((EntityRef)node, sw);
                 }
                 else
                 {
@@ -292,7 +292,7 @@ public class NodeList implements List, Cloneable
      */
     public NodeList selectNodes(String xpathString)
     {
-        return new NodeList(XPathCache.getXPath(xpathString).applyTo(nodes), false);
+        return new NodeList(XPathCache.getXPath(xpathString).evaluate(nodes), false);
     }
 
 // List methods implemented hereafter
@@ -487,8 +487,11 @@ public class NodeList implements List, Cloneable
      * method escapeAttributeEntities() to serialize the attribute
      * appropriately.
      */
-    private static final class AttributeXMLOutputter extends XMLOutputter
+    private static final class AttributeXMLOutputter
     {
+
+        XMLOutputter outputter = new XMLOutputter();
+
         /**
          * @param attribute
          * @param out
@@ -502,7 +505,7 @@ public class NodeList implements List, Cloneable
             out.write("=");
 
             out.write("\"");
-            out.write(escapeAttributeEntities(attribute.getValue()));
+            out.write(outputter.escapeAttributeEntities(attribute.getValue()));
             out.write("\"");
         }
     }

@@ -16,15 +16,14 @@ package org.apache.velocity.runtime.log;
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
- * under the License.    
+ * under the License.
  */
 
-import org.apache.log4j.Category;
-import org.apache.log4j.Level;
-import org.apache.log4j.PatternLayout;
-import org.apache.log4j.RollingFileAppender;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.RuntimeServices;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.event.Level;
 
 /**
  * <p><em>This class is deprecated in favor of the new {@link Log4JLogChute},
@@ -43,10 +42,9 @@ import org.apache.velocity.runtime.RuntimeServices;
 public class SimpleLog4JLogSystem implements LogSystem
 {
     private RuntimeServices rsvc = null;
-    private RollingFileAppender appender = null;
 
     /** log4java logging interface */
-    protected Category logger = null;
+    protected Logger logger = null;
 
     /**
      *
@@ -71,7 +69,7 @@ public class SimpleLog4JLogSystem implements LogSystem
 
         if ( categoryname != null )
         {
-            logger = Category.getInstance( categoryname );
+            logger = LoggerFactory.getLogger( categoryname );
 
             logVelocityMessage( 0,
                                 "SimpleLog4JLogSystem using category '" + categoryname + "'");
@@ -113,22 +111,13 @@ public class SimpleLog4JLogSystem implements LogSystem
          *  that might be used...
          */
 
-        logger = Category.getInstance(this.getClass().getName());
-        logger.setAdditivity(false);
+        logger = LoggerFactory.getLogger(this.getClass().getName());
 
         /*
          * Priority is set for DEBUG becouse this implementation checks
          * log level.
          */
-        logger.setLevel(Level.DEBUG);
-
-        appender = new RollingFileAppender( new PatternLayout( "%d - %m%n"), logfile, true);
-
-        appender.setMaxBackupIndex( 1 );
-
-        appender.setMaximumFileSize( 100000 );
-
-        logger.addAppender(appender);
+        logger.atLevel(Level.DEBUG);
     }
 
     /**
@@ -169,11 +158,5 @@ public class SimpleLog4JLogSystem implements LogSystem
     /** Close all destinations*/
     public void shutdown()
     {
-        if (appender != null)
-        {
-            logger.removeAppender(appender);
-            appender.close();
-            appender = null;
-        }
     }
 }

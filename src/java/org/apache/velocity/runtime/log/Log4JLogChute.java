@@ -21,13 +21,12 @@ package org.apache.velocity.runtime.log;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
-import org.apache.log4j.RollingFileAppender;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.RuntimeServices;
 import org.apache.velocity.util.ExceptionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.event.Level;
 
 /**
  * Implementation of a simple log4j system that will either latch onto
@@ -49,7 +48,6 @@ public class Log4JLogChute implements LogChute
 
     private RuntimeServices rsvc = null;
     private boolean hasTrace = false;
-    private RollingFileAppender appender = null;
 
     /**
      * <a href="http://jakarta.apache.org/log4j/">Log4J</a> logging API.
@@ -69,29 +67,21 @@ public class Log4JLogChute implements LogChute
         String name = (String)rsvc.getProperty(RUNTIME_LOG_LOG4J_LOGGER);
         if (name != null)
         {
-            logger = Logger.getLogger(name);
+            logger = LoggerFactory.getLogger(name);
             log(DEBUG_ID, "Log4JLogChute using logger '" + name + '\'');
         }
         else
         {
             // create a logger with this class name to avoid conflicts
-            logger = Logger.getLogger(this.getClass().getName());
-
-            // if we have a file property, then create a separate
-            // rolling file log for velocity messages only
-            String file = rsvc.getString(RuntimeConstants.RUNTIME_LOG);
-            if (file != null && file.length() > 0)
-            {
-                initAppender(file);
-            }
+            logger = LoggerFactory.getLogger(this.getClass().getName());
         }
 
         /* get and set specified level for this logger */
         String lvl = rsvc.getString(RUNTIME_LOG_LOG4J_LOGGER_LEVEL);
         if (lvl != null)
         {
-            Level level = Level.toLevel(lvl);
-            logger.setLevel(level);
+            Level level = Level.valueOf(lvl);
+            logger.atLevel(level);
         }
         
         /* Ok, now let's see if this version of log4j supports the trace level. */
@@ -105,32 +95,6 @@ public class Log4JLogChute implements LogChute
         {
             log(DEBUG_ID,
                 "The version of log4j being used does not support the \"trace\" level.");
-        }
-    }
-
-    // This tries to create a file appender for the specified file name.
-    private void initAppender(String file) throws Exception
-    {
-        try
-        {
-            // to add the appender
-            PatternLayout layout = new PatternLayout("%d - %m%n");
-            this.appender = new RollingFileAppender(layout, file, true);
-
-            // if we successfully created the file appender,
-            // configure it and set the logger to use only it
-            appender.setMaxBackupIndex(1);
-            appender.setMaximumFileSize(100000);
-
-            // don't inherit appenders from higher in the logger heirarchy
-            logger.setAdditivity(false);
-            logger.addAppender(appender);
-            log(DEBUG_ID, "Log4JLogChute initialized using file '"+file+'\'');
-        }
-        catch (IOException ioe)
-        {
-            rsvc.getLog().error("Could not create file appender '"+file+'\'', ioe);
-            throw ExceptionUtils.createRuntimeException("Error configuring Log4JLogChute : ", ioe);
         }
     }
 
@@ -224,10 +188,10 @@ public class Log4JLogChute implements LogChute
                     return logger.isDebugEnabled();
                 }
             case LogChute.WARN_ID:
-                return logger.isEnabledFor(Level.WARN);
+                return logger.isWarnEnabled();
             case LogChute.ERROR_ID:
                 // can't be disabled in log4j
-                return logger.isEnabledFor(Level.ERROR);
+                return logger.isErrorEnabled();
             default:
                 return true;
         }
@@ -245,12 +209,6 @@ public class Log4JLogChute implements LogChute
     /** Close all destinations*/
     public void shutdown()
     {
-        if (appender != null)
-        {
-            logger.removeAppender(appender);
-            appender.close();
-            appender = null;
-        }
     }
 
 }

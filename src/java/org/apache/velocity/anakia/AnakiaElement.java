@@ -19,9 +19,9 @@ package org.apache.velocity.anakia;
  * under the License.    
  */
 
-import org.jdom.Element;
-import org.jdom.Namespace;
-import org.jdom.output.XMLOutputter;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
+import org.jdom2.output.XMLOutputter;
 import java.util.List;
 
 /**
@@ -129,7 +129,7 @@ public class AnakiaElement extends Element
      */
     public NodeList selectNodes(String xpathExpression)
     {
-        return new NodeList(XPathCache.getXPath(xpathExpression).applyTo(this), false);
+        return new NodeList(XPathCache.getXPath(xpathExpression).evaluate(this), false);
     }
 
     /**
@@ -158,10 +158,10 @@ public class AnakiaElement extends Element
      *
      * @return a <code>List</code> containing the mixed content of the
      *         element: may contain <code>String</code>,
-     *         <code>{@link Element}</code>, <code>{@link org.jdom.Comment}</code>,
-     *         <code>{@link org.jdom.ProcessingInstruction}</code>,
-     *         <code>{@link org.jdom.CDATA}</code>, and
-     *         <code>{@link org.jdom.EntityRef}</code> objects.
+     *         <code>{@link Element}</code>, <code>{@link org.jdom2.Comment}</code>,
+     *         <code>{@link org.jdom2.ProcessingInstruction}</code>,
+     *         <code>{@link org.jdom2.CDATA}</code>, and
+     *         <code>{@link org.jdom2.EntityRef}</code> objects.
      */
     public List getContent()
     {

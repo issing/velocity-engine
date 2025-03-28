@@ -41,10 +41,10 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.util.StringUtils;
 
-import org.jdom.Document;
-import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
-import org.jdom.output.Format;
+import org.jdom2.Document;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
 import org.xml.sax.SAXParseException;
 
 /**

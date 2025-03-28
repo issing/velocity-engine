@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.jdom.Element;
+import org.jdom2.Element;
 
 /**
  * This class allows you to walk a tree of JDOM Element objects.
@@ -63,7 +63,7 @@ public class TreeWalker
 
     /**
      * A recursive method to walk the Element tree.
-     * @param Element the current Element
+     * @param e the current Element
      */
     private final void treeWalk(Element e, Collection theElements )
     {

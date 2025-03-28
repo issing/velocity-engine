@@ -22,9 +22,9 @@ package org.apache.velocity.anakia;
 import java.io.IOException;
 import java.io.StringWriter;
 
-import org.jdom.Element;
-import org.jdom.output.XMLOutputter;
-import org.jdom.output.Format;
+import org.jdom2.Element;
+import org.jdom2.output.XMLOutputter;
+import org.jdom2.output.Format;
 
 /**
  * This class extends XMLOutputter in order to provide
@@ -34,13 +34,16 @@ import org.jdom.output.Format;
  * @author <a href="mailto:rubys@us.ibm.com">Sam Ruby</a>
  * @version $Id$
  */
-public class OutputWrapper extends XMLOutputter
+public class OutputWrapper
 {
+    private XMLOutputter outputter;
+
     /**
      * Empty constructor
      */
     public OutputWrapper()
     {
+        outputter = new XMLOutputter();
     }
 
     /**
@@ -48,7 +51,7 @@ public class OutputWrapper extends XMLOutputter
      */
     public OutputWrapper(Format f)
     {
-        super(f);
+        outputter = new XMLOutputter(f);
     }
 
     /**
@@ -72,7 +75,7 @@ public class OutputWrapper extends XMLOutputter
 
         try
         {
-            outputElementContent(element, buff);
+            outputter.outputElementContent(element, buff);
         }
         catch (IOException e)
         {

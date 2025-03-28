@@ -21,8 +21,8 @@ package org.apache.velocity.anakia;
 
 import java.util.List;
 
-import org.jdom.Document;
-import org.jdom.Element;
+import org.jdom2.Document;
+import org.jdom2.Element;
 
 /**
  * This class adds an entrypoint into XPath functionality,
@@ -93,7 +93,7 @@ public class XPathTool
                         Document doc)
     {
         //RuntimeSingleton.info("XPathTool::applyTo(String, Document)");
-        return new NodeList(XPathCache.getXPath(xpathSpec).applyTo( doc ), false);
+        return new NodeList(XPathCache.getXPath(xpathSpec).evaluate( doc ), false);
     }
 
     /**
@@ -108,7 +108,7 @@ public class XPathTool
                         Element elem)
     {
         //RuntimeSingleton.info("XPathTool::applyTo(String, Element)");
-        return new NodeList(XPathCache.getXPath(xpathSpec).applyTo( elem ), false);
+        return new NodeList(XPathCache.getXPath(xpathSpec).evaluate( elem ), false);
     }
 
     /**
@@ -123,7 +123,7 @@ public class XPathTool
                         List nodeSet)
     {
         //RuntimeSingleton.info("XPathTool::applyTo(String, List)");
-        return new NodeList(XPathCache.getXPath(xpathSpec).applyTo( nodeSet ), false);
+        return new NodeList(XPathCache.getXPath(xpathSpec).evaluate( nodeSet ), false);
     }
 }
 

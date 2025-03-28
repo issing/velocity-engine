@@ -19,9 +19,9 @@ package org.apache.velocity.anakia;
  * under the License.    
  */
 
-import org.jdom.Element;
-import org.jdom.Namespace;
-import org.jdom.DefaultJDOMFactory;
+import org.jdom2.DefaultJDOMFactory;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
 
 /**
  * A customized JDOMFactory for Anakia that produces {@link AnakiaElement}
@@ -40,33 +40,33 @@ public class AnakiaJDOMFactory extends DefaultJDOMFactory
     }
 
     /**
-     * @see org.jdom.DefaultJDOMFactory#element(java.lang.String, org.jdom.Namespace)
+     * @see org.jdom2.DefaultJDOMFactory#element(java.lang.String, org.jdom2.Namespace)
      */
-    public Element element(String name, Namespace namespace)
+    public Element element(final int line, final int col, String name, Namespace namespace)
     {
         return new AnakiaElement(name, namespace);
     }
 
     /**
-     * @see org.jdom.DefaultJDOMFactory#element(java.lang.String)
+     * @see org.jdom2.DefaultJDOMFactory#element(java.lang.String)
      */
-    public Element element(String name)
+    public Element element(final int line, final int col, String name)
     {
         return new AnakiaElement(name);
     }
 
     /**
-     * @see org.jdom.DefaultJDOMFactory#element(java.lang.String, java.lang.String)
+     * @see org.jdom2.DefaultJDOMFactory#element(java.lang.String, java.lang.String)
      */
-    public Element element(String name, String uri)
+    public Element element(final int line, final int col, String name, String uri)
     {
         return new AnakiaElement(name, uri);
     }
 
     /**
-     * @see org.jdom.DefaultJDOMFactory#element(java.lang.String, java.lang.String, java.lang.String)
+     * @see org.jdom2.DefaultJDOMFactory#element(java.lang.String, java.lang.String, java.lang.String)
      */
-    public Element element(String name, String prefix, String uri)
+    public Element element(final int line, final int col, String name, String prefix, String uri)
     {
         return new AnakiaElement(name, prefix, uri);
     }

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>net.isger</groupId>
         <artifactId>oss-parent</artifactId>
-        <version>2</version>
+        <version>3</version>
     </parent>
     <artifactId>velocity</artifactId>
-    <version>1.7</version>
+    <version>1.7.1</version>
     <packaging>jar</packaging>
 
     <name>velocity</name>
@@ -21,20 +22,22 @@
     </scm>
 
     <properties>
-        <collections.version>3.2.1</collections.version>
+        <servlet.version>2.5</servlet.version>
+        <collections.version>3.2.2</collections.version>
         <lang.version>2.4</lang.version>
         <oro.version>2.0.8</oro.version>
-        <jdom.version>1.0</jdom.version>
-        <logging.version>1.1</logging.version>
-        <log4j.version>1.2.12</log4j.version>
-        <servlet.version>2.3</servlet.version>
-        <logkit.version>2.0</logkit.version>
-        <ant.version>1.6</ant.version>
-        <xpath.version>0.9.4</xpath.version>
+        <jdom.version>2.0.6.1</jdom.version>
+        <ant.version>1.10.15</ant.version>
         <hsql.version>1.7.1</hsql.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
@@ -52,59 +55,15 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>jdom</groupId>
-            <artifactId>jdom</artifactId>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom2</artifactId>
             <version>${jdom.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>${logging.version}</version>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>avalon-framework</groupId>
-                    <artifactId>avalon-framework</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>${servlet.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>logkit</groupId>
-            <artifactId>logkit</artifactId>
-            <version>${logkit.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>ant</groupId>
+            <groupId>org.apache.ant</groupId>
             <artifactId>ant</artifactId>
             <version>${ant.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>werken-xpath</groupId>
-            <artifactId>werken-xpath</artifactId>
-            <version>${xpath.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

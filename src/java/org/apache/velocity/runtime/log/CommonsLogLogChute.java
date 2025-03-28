@@ -19,10 +19,9 @@ package org.apache.velocity.runtime.log;
  * under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.runtime.RuntimeServices;
-import org.apache.velocity.runtime.log.LogChute;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Redirects Velocity's LogChute messages to commons-logging.
@@ -58,7 +57,7 @@ public class CommonsLogLogChute implements LogChute
 
     
     /** the commons-logging Log instance */
-    protected Log log;
+    protected Logger log;
 
 
     /********** LogChute methods *************/
@@ -72,7 +71,7 @@ public class CommonsLogLogChute implements LogChute
         {
             name = DEFAULT_LOG_NAME;
         }
-        log = LogFactory.getLog(name);
+        log = LoggerFactory.getLogger(name);
         log(LogChute.DEBUG_ID, "CommonsLogLogChute name is '" + name + "'");
     }
 
