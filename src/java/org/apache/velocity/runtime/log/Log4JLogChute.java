@@ -19,14 +19,12 @@ package org.apache.velocity.runtime.log;
  * under the License.    
  */
 
-import java.io.IOException;
-import java.lang.reflect.Field;
-import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.RuntimeServices;
-import org.apache.velocity.util.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.event.Level;
+
+import java.lang.reflect.Field;
 
 /**
  * Implementation of a simple log4j system that will either latch onto
